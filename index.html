@@ -1,0 +1,124 @@
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Permanência - UPA Zona Norte</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="logos">
+            <img src="ideas_logo.png" alt="Logo Ideas">
+            <img src="upa_logo.png" alt="Logo UPA">
+        </div>
+        <h1 class="title">Painel de Permanência da UPA Zona Norte</h1>
+        <div class="header-right">
+            <button id="download-pdf-button" class="header-action-button" aria-label="Baixar PDF">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            </button>
+            <div id="theme-switcher">
+                <button id="theme-toggle-button" class="header-action-button" aria-label="Mudar Tema">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon sun-icon">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon moon-icon">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="clock-container">
+                <div id="date"></div>
+                <div id="time"></div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <table id="patient-table">
+            <thead>
+                <tr>
+                    <th>Paciente</th>
+                    <th>Idade</th>
+                    <th>Entrada</th>
+                    <th>Saída</th>
+                    <th>Classificação de Risco</th>
+                    <th>Motivo da Saída</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Linhas de pacientes serão inseridas aqui pelo JavaScript -->
+            </tbody>
+        </table>
+    </main>
+
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Editar Informações do Paciente</h2>
+            <form id="edit-form">
+                <input type="hidden" id="patient-id">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="patient-name">Nome do Paciente</label>
+                        <input type="text" id="patient-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="patient-age">Idade</label>
+                        <input type="number" id="patient-age" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="entry-datetime">Data/Hora de Entrada</label>
+                        <input type="datetime-local" id="entry-datetime" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exit-datetime">Data/Hora de Saída</label>
+                        <input type="datetime-local" id="exit-datetime">
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="exit-reason">Motivo da Saída</label>
+                        <select id="exit-reason">
+                            <option value="">Selecione...</option>
+                            <option value="Alta">Alta</option>
+                            <option value="Transferência">Transferência</option>
+                            <option value="Evasão">Evasão</option>
+                            <option value="Óbito">Óbito</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                    <hr class="full-width">
+                    <h3 class="full-width">Informações do Profissional</h3>
+                    <div class="form-group">
+                        <label for="staff-name">Nome do Profissional</label>
+                        <input type="text" id="staff-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="staff-sector">Setor</label>
+                        <input type="text" id="staff-sector">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="button-primary">Salvar</button>
+                    <button type="button" id="delete-button" class="button-danger">Deletar</button>
+                    <button type="button" id="cancel-button" class="button-secondary">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+    <script type="module" src="main.js"></script>
+</body>
+</html>
